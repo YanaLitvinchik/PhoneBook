@@ -5,31 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhoneBook"
         mc:Ignorable="d"
-        Title="PhoneBook" Height="500" Width="600">
+        Icon="/Images/logo.png"
+        Title="PhoneBook" Height="700" Width="600" Background="Honeydew" >
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Orientation="Horizontal">
+            <Image Source="/Images/logo1.png" Width="60" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <TextBlock Text="PhoneBook" Style="{StaticResource baseFont}" FontSize="50" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15 5"/>
+        </StackPanel>
         <GroupBox Header="Список контактов">
-            <ListView x:Name="List1" ItemsSource="{Binding Path=Contacts}"
-                      SelectedItem="{Binding Path=SelectedContact}">
+            <ListView x:Name="List1" ItemsSource="{Binding Contacts}"
+                      SelectedItem="{Binding SelectedContact}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Person}">Person</GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Phone}">Phone</GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Email}">Email</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Person}" Header="Person"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Phone}" Header="Phone"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Email}" Header="Email"/>
                     </GridView>
                 </ListView.View>
             </ListView>
         </GroupBox>
-        
         <GroupBox Header="Редактирование данных">
-            <StackPanel DataContext="{Binding Path=SelectedContact}">
+            <StackPanel DataContext="{Binding SelectedContact}">
                 <Label Content="Person: "/>
-                <TextBox Text="{Binding Path=Person}"/>
+                <TextBox Text="{Binding Person}"/>
                 <Label Content="Phone: "/>
-                <TextBox Text="{Binding Path=Phone}"/>
+                <TextBox Text="{Binding Phone}"/>
                 <Label Content="Email: "/>
-                <TextBox Text="{Binding Path=Email}"/>
+                <TextBox Text="{Binding Email}"/>
             </StackPanel>
         </GroupBox>
-        <GroupBox Header="Управление"></GroupBox>
+        <GroupBox Header="Управление"/>
     </StackPanel>
 </Window>
