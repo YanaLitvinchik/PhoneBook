@@ -19,6 +19,7 @@
                 </ListView.View>
             </ListView>
         </GroupBox>
+        
         <GroupBox Header="Редактирование данных">
             <StackPanel DataContext="{Binding Path=SelectedContact}">
                 <Label Content="Person: "/>
