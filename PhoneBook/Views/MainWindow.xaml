@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PhoneBook"
         mc:Ignorable="d"
         Icon="/Images/logo.png"
-        Title="PhoneBook" Height="700" Width="600" Background="Honeydew" >
+        Title="PhoneBook" Height="700" Width="600" Background="Aqua" >
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Orientation="Horizontal">
             <Image Source="/Images/logo1.png" Width="60" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Center"/>
@@ -28,13 +28,25 @@
         <GroupBox Header="Редактирование данных">
             <StackPanel DataContext="{Binding SelectedContact}">
                 <Label Content="Person: "/>
-                <TextBox Text="{Binding Person}"/>
+                <TextBox Text="{Binding Person,
+                    UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Content="Phone: "/>
-                <TextBox Text="{Binding Phone}"/>
+                <TextBox Text="{Binding Phone,
+                    UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Content="Email: "/>
-                <TextBox Text="{Binding Email}"/>
+                <TextBox Text="{Binding Email,
+                    UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </GroupBox>
-        <GroupBox Header="Управление"/>
+        <GroupBox Header="Управление">
+            <StackPanel>
+            <Button Content="Добавить контакт"
+                    Command="{Binding Path=Add}"/>
+            <Button Content="Сохранить контакт"
+                    Command="{Binding Path=Save}"/>
+            <Button Content="Удалить контакт"
+                    Command="{Binding Path=Del}"/>
+            </StackPanel>
+        </GroupBox>
     </StackPanel>
 </Window>

@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using PhoneBook.Models;
 using System.Collections.ObjectModel;
+using PhoneBook.Commands;
 
 namespace PhoneBook.ViewModels
 {
@@ -24,6 +25,39 @@ namespace PhoneBook.ViewModels
         }
         public ObservableCollection<Contact> Contacts { get; set; }
 
+        //Commands : 
+        private AddCommand add;
+        private DelCommand del;
+        private SaveCommand save;
+
+        public AddCommand Add
+        {
+            get
+            {
+                if (add == null)
+                    add = new AddCommand(this);
+                return add;                    
+            }
+        }
+        public DelCommand Del
+        {
+            get
+            {
+                if (del == null)
+                    del = new DelCommand(this);
+                return del;
+            }
+        }
+        public SaveCommand Save
+        {
+            get
+            {
+                if (save == null)
+                    save = new SaveCommand(this);
+                return save;
+            }
+        }
+
         public DataManager()
         {
             Contacts = new ObservableCollection<Contact>();
@@ -31,7 +65,6 @@ namespace PhoneBook.ViewModels
             doc = XDocument.Load(path);
             LoadData();
         }
-
         public void LoadData()
         {
             var res = doc.Element("root").Elements("contact").ToList();
@@ -45,6 +78,27 @@ namespace PhoneBook.ViewModels
                 };
                 Contacts.Add(c);
             }
+        }
+
+        public void DelContact(Contact c)
+        {
+            //var res = doc.Element("root").Element("contact")
+            //    .Where(x => x.Attribute("person").Value == c.Person)
+            //    .FirstOrDafault();
+            //if(res != null)
+            //{
+            //    res.Remove();
+            //    doc.Save(path);
+            //}
+        }
+        public void SaveContact(Contact c)
+        {
+            XElement elem = new XElement("contact",
+                new XAttribute("person",c.Person), 
+                new XAttribute("phone", c.Phone),
+                new XAttribute("email", c.Email));
+            doc.Element("root").Add(elem);
+            doc.Save(path);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
